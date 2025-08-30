@@ -1,6 +1,6 @@
 # 🎬 Movie Collection App
 
-A full-stack web application for managing your personal movie collection with Google OAuth authentication, built using the MERN stack.
+A full-stack web application for managing your personal movie collection with Google OAuth authentication,this is built using the MERN stack.
 
 ## ✨ Features
 
