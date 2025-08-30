@@ -3,96 +3,122 @@ import styled from 'styled-components';
 import { Card, FlexContainer } from '../styles/GlobalStyles';
 
 const MovieCardContainer = styled(Card)`
-  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  }
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 const MovieTitle = styled.h3`
   font-size: 18px;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 8px;
-  line-height: 1.3;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
 `;
 
 const MovieInfo = styled.div`
-  margin-bottom: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
-const InfoItem = styled.p`
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 4px;
+const InfoRow = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
   
-  strong {
-    color: #333;
-    min-width: 80px;
+  span:first-child {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+    min-width: 60px;
+  }
+  
+  span:last-child {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
   }
 `;
 
 const GenreBadge = styled.span`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 600;
+  background: rgba(120, 119, 198, 0.2);
+  color: rgba(120, 119, 198, 1);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(10px);
+`;
+
+const YearBadge = styled.span`
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 `;
 
 const ActionButtons = styled(FlexContainer)`
-  margin-top: 16px;
+  margin-top: 20px;
   padding-top: 16px;
-  border-top: 1px solid #e1e5e9;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 `;
 
 const ActionButton = styled.button`
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 8px;
   border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  cursor: ${props => props.disabled ? 'not-allowed' : 'pointer'};
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   flex: 1;
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   
   &.edit {
-    background: #ffd43b;
-    color: #495057;
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
     
-    &:hover {
-      background: #fab005;
-      transform: translateY(-1px);
+    &:hover:not(:disabled) {
+      background: rgba(255, 193, 7, 0.25);
+      border-color: rgba(255, 193, 7, 0.5);
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
     }
   }
   
   &.delete {
-    background: #ff6b6b;
-    color: white;
+    background: rgba(220, 53, 69, 0.15);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
     
-    &:hover {
-      background: #ff5252;
-      transform: translateY(-1px);
+    &:hover:not(:disabled) {
+      background: rgba(220, 53, 69, 0.25);
+      border-color: rgba(220, 53, 69, 0.5);
+      box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2);
     }
   }
-`;
-
-const YearBadge = styled.span`
-  background: #f8f9fa;
-  color: #495057;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
+  
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
 `;
 
 const MovieCard = ({ movie, onEdit, onDelete }) => {
@@ -101,28 +127,36 @@ const MovieCard = ({ movie, onEdit, onDelete }) => {
       <MovieTitle>{movie.title}</MovieTitle>
       
       <MovieInfo>
-        <InfoItem>
-          <strong>Director:</strong>
+        <InfoRow>
+          <span>Director</span>
           <span>{movie.director}</span>
-        </InfoItem>
+        </InfoRow>
         
-        <InfoItem>
-          <strong>Year:</strong>
+        <InfoRow>
+          <span>Year</span>
           <YearBadge>{movie.releaseYear}</YearBadge>
-        </InfoItem>
+        </InfoRow>
         
-        <InfoItem>
-          <strong>Genre:</strong>
+        <InfoRow>
+          <span>Genre</span>
           <GenreBadge>{movie.genre}</GenreBadge>
-        </InfoItem>
+        </InfoRow>
       </MovieInfo>
       
-      <ActionButtons gap="8px">
-        <ActionButton className="edit" onClick={onEdit}>
-          ✏️ Edit
+      <ActionButtons gap="12px">
+        <ActionButton 
+          className="edit" 
+          onClick={onEdit}
+          title="Edit movie"
+        >
+          Edit
         </ActionButton>
-        <ActionButton className="delete" onClick={onDelete}>
-          🗑️ Delete
+        <ActionButton 
+          className="delete" 
+          onClick={onDelete}
+          title="Delete movie"
+        >
+          Delete
         </ActionButton>
       </ActionButtons>
     </MovieCardContainer>

@@ -3,50 +3,69 @@ import styled from 'styled-components';
 import { FlexContainer } from '../styles/GlobalStyles';
 
 const PaginationContainer = styled.div`
-  margin: 40px 0;
+  margin: 48px 0;
   display: flex;
   justify-content: center;
 `;
 
 const PaginationButton = styled.button`
   background: ${props => props.active ? 
-    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 
-    'rgba(255, 255, 255, 0.9)'
+    'rgba(120, 119, 198, 0.2)' : 
+    'rgba(255, 255, 255, 0.05)'
   };
-  color: ${props => props.active ? 'white' : '#333'};
-  border: 2px solid ${props => props.active ? 'transparent' : '#e1e5e9'};
-  border-radius: 8px;
-  padding: 10px 16px;
-  margin: 0 4px;
-  font-size: 14px;
-  font-weight: 600;
+  color: ${props => props.active ? 'rgba(120, 119, 198, 1)' : 'rgba(255, 255, 255, 0.8)'};
+  border: 1px solid ${props => props.active ? 
+    'rgba(120, 119, 198, 0.4)' : 
+    'rgba(255, 255, 255, 0.1)'
+  };
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 0 6px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 44px;
+  backdrop-filter: blur(20px);
+  letter-spacing: 0.02em;
   
   &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
     background: ${props => props.active ? 
-      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 
-      '#f8f9fa'
+      'rgba(120, 119, 198, 0.3)' : 
+      'rgba(255, 255, 255, 0.1)'
     };
+    border-color: ${props => props.active ? 
+      'rgba(120, 119, 198, 0.6)' : 
+      'rgba(255, 255, 255, 0.2)'
+    };
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    color: ${props => props.active ? 'rgba(120, 119, 198, 1)' : 'rgba(255, 255, 255, 0.9)'};
   }
   
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.3;
     cursor: not-allowed;
     transform: none;
+    color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
   }
 `;
 
 const PageInfo = styled.div`
-  color: white;
-  font-size: 14px;
-  margin: 0 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  margin: 0 20px;
   display: flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 12px 16px;
+  backdrop-filter: blur(20px);
 `;
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
@@ -89,13 +108,18 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          ← Prev
+          Previous
         </PaginationButton>
 
         {visiblePages.map((page, index) => (
           <React.Fragment key={index}>
             {page === '...' ? (
-              <span style={{ color: 'white', margin: '0 8px' }}>...</span>
+              <span style={{ 
+                color: 'rgba(255, 255, 255, 0.5)', 
+                margin: '0 12px',
+                fontSize: '14px',
+                fontWeight: '500'
+              }}>...</span>
             ) : (
               <PaginationButton
                 active={page === currentPage}
@@ -111,7 +135,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          Next →
+          Next
         </PaginationButton>
 
         <PageInfo>

@@ -4,56 +4,76 @@ import { useAuth } from '../context/AuthContext';
 import { Container, FlexContainer } from '../styles/GlobalStyles';
 
 const HeaderContainer = styled.header`
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 16px 0;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 `;
 
 const Logo = styled.h1`
-  color: white;
+  color: #ffffff;
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  letter-spacing: -0.02em;
+  
+  &::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, rgba(120, 119, 198, 1), rgba(255, 119, 198, 1));
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(120, 119, 198, 0.5);
+  }
 `;
 
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
 `;
 
 const UserAvatar = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 `;
 
 const UserName = styled.span`
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: -0.01em;
 `;
 
 const LogoutButton = styled.button`
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(20px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(220, 53, 69, 0.25);
+    border-color: rgba(220, 53, 69, 0.5);
     transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.2);
   }
 `;
 
@@ -71,7 +91,7 @@ const Header = () => {
       <Container>
         <FlexContainer justify="space-between">
           <Logo>
-            🎬 Movie Collection
+            Movie Collection
           </Logo>
           
           <UserInfo>

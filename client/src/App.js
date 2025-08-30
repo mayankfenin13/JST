@@ -41,8 +41,16 @@ function AppContent() {
             element={<AuthSuccess />} 
           />
           <Route 
+            path="/auth/success" 
+            element={<AuthSuccess />} 
+          />
+          <Route 
             path="/" 
             element={user ? <Dashboard /> : <Navigate to="/login" />} 
+          />
+          <Route 
+            path="*" 
+            element={user ? <Navigate to="/" /> : <Navigate to="/login" />} 
           />
         </Routes>
       </Router>

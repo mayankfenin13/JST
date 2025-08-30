@@ -8,99 +8,156 @@ const GlobalStyles = createGlobalStyle`
   }
   
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 100%);
     min-height: 100vh;
-    color: #333;
+    color: #e8eaed;
+    line-height: 1.6;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+  }
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    transition: background 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
   }
   
   button {
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 12px 24px;
-    font-size: 16px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-family: inherit;
+    letter-spacing: 0.01em;
+    position: relative;
+    backdrop-filter: blur(20px);
     
     &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
     }
     
     &:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
       transform: none;
     }
   }
   
   input, select, textarea {
-    border: 2px solid #e1e5e9;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 14px;
     font-family: inherit;
-    transition: border-color 0.3s ease;
+    color: #e8eaed;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
     
     &:focus {
       outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      border-color: rgba(120, 119, 198, 0.5);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 1px rgba(120, 119, 198, 0.3);
     }
-  }
-  
-  .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-  }
-  
-  .btn-secondary {
-    background: #f8f9fa;
-    color: #495057;
-    border: 2px solid #e1e5e9;
-  }
-  
-  .btn-danger {
-    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
-    color: white;
-  }
-  
-  .btn-success {
-    background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-    color: white;
   }
 `;
 
 export const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
+  
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
 `;
 
 export const Card = styled.div`
-  background: white;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  }
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 
+      0 12px 40px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.12);
   }
 `;
 
 export const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 24px;
+  }
 `;
 
 export const FlexContainer = styled.div`
@@ -112,25 +169,27 @@ export const FlexContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 20px;
-  text-align: center;
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 `;
 
 export const SubTitle = styled.h2`
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 16px;
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  letter-spacing: -0.01em;
 `;
 
 export const Text = styled.p`
-  font-size: 1rem;
+  font-size: 14px;
   line-height: 1.6;
-  color: ${props => props.color || '#666'};
-  margin-bottom: ${props => props.mb || '12px'};
+  color: ${props => props.color || 'rgba(255, 255, 255, 0.7)'};
+  margin: 0;
 `;
 
 export default GlobalStyles;

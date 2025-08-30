@@ -3,75 +3,88 @@ import styled from 'styled-components';
 import { Card, FlexContainer } from '../styles/GlobalStyles';
 
 const SearchCard = styled(Card)`
-  margin: 20px 0;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  margin: 32px 0;
 `;
 
 const SearchInput = styled.input`
   flex: 1;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 15px;
+  color: #ffffff;
   transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
   
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: rgba(120, 119, 198, 0.5);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 1px rgba(120, 119, 198, 0.3);
   }
   
   &::placeholder {
-    color: #999;
+    color: rgba(255, 255, 255, 0.4);
   }
 `;
 
 const SearchButton = styled.button`
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: 600;
+  background: rgba(120, 119, 198, 0.15);
+  color: rgba(120, 119, 198, 1);
+  border: 1px solid rgba(120, 119, 198, 0.3);
+  border-radius: 12px;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   min-width: 100px;
+  backdrop-filter: blur(20px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  &:hover:not(:disabled) {
+    background: rgba(120, 119, 198, 0.25);
+    border-color: rgba(120, 119, 198, 0.5);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 25px rgba(120, 119, 198, 0.2);
   }
   
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
-    transform: none;
   }
 `;
 
 const ClearButton = styled.button`
-  background: #f8f9fa;
-  color: #495057;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px 20px;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
+  backdrop-filter: blur(20px);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   
   &:hover {
-    background: #e9ecef;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.9);
     transform: translateY(-1px);
   }
 `;
 
 const SearchHint = styled.p`
-  color: #666;
-  font-size: 14px;
-  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  margin-top: 12px;
   text-align: center;
+  font-weight: 400;
 `;
 
 const SearchBar = ({ onSearch }) => {
@@ -83,7 +96,7 @@ const SearchBar = ({ onSearch }) => {
     const timeoutId = setTimeout(() => {
       onSearch(query);
       setIsSearching(false);
-    }, 500);
+    }, 300);
 
     return () => clearTimeout(timeoutId);
   }, [query, onSearch]);
@@ -122,13 +135,13 @@ const SearchBar = ({ onSearch }) => {
           )}
           
           <SearchButton type="submit" disabled={isSearching}>
-            {isSearching ? '⏳' : '🔍 Search'}
+            {isSearching ? 'Searching...' : 'Search'}
           </SearchButton>
         </FlexContainer>
       </form>
       
       <SearchHint>
-        💡 You can search by movie title or director name
+        Search by movie title or director name
       </SearchHint>
     </SearchCard>
   );

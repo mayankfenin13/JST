@@ -20,7 +20,7 @@ router.get('/google/callback',
     );
     
     // Redirect to client with token
-    res.redirect(`${process.env.CLIENT_URL}/auth/success?token=${token}`);
+    res.redirect(`${process.env.CLIENT_URL}/auth-success?token=${token}`);
   }
 );
 
