@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import apiConfig from '../config/api';
 
 const AuthContext = createContext();
 
@@ -17,6 +18,9 @@ export const AuthProvider = ({ children }) => {
 
   // Set up axios defaults
   useEffect(() => {
+    // Configure axios base URL
+    axios.defaults.baseURL = apiConfig.baseURL;
+    
     const token = localStorage.getItem('token');
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -37,6 +41,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       const response = await axios.get('/api/auth/user');
+      console.log('Auth check response:', response.data);
       setUser(response.data);
     } catch (error) {
       console.error('Auth check failed:', error);
@@ -48,6 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = (token) => {
+    console.log('Login called with token:', token);
     localStorage.setItem('token', token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     checkAuth();

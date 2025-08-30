@@ -16,13 +16,20 @@ SESSION_SECRET=your-super-secret-session-key-here
 GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your-google-client-secret
 
-# Frontend URL (important for CORS and OAuth redirects)
+# URLs (CRITICAL for deployment)
 CLIENT_URL=https://your-frontend-app.vercel.app
+SERVER_URL=https://your-backend-app.onrender.com
 
 # Server Configuration
-PORT=5001
+PORT=10000
 NODE_ENV=production
 ```
+
+**Important Notes:**
+- Replace `your-frontend-app` with your actual Vercel app name
+- Replace `your-backend-app` with your actual Render service name
+- Use PORT=10000 for Render (their default)
+- Make sure CLIENT_URL exactly matches your Vercel deployment URL
 
 ## Frontend Environment Variables (Vercel)
 

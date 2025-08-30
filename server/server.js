@@ -31,21 +31,34 @@ app.use(limiter);
 // CORS configuration
 const allowedOrigins = [
   'http://localhost:3000', // Development
-  process.env.CLIENT_URL || 'https://your-app.vercel.app' // Production
-];
+  'http://localhost:3001', // Alternative development port
+  process.env.CLIENT_URL // Production frontend URL
+].filter(Boolean); // Remove any undefined values
+
+console.log('Allowed CORS origins:', allowedOrigins);
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
+    // Allow requests with no origin (like mobile apps, curl, Postman)
+    if (!origin) {
+      console.log('Request with no origin allowed');
+      return callback(null, true);
+    }
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    console.log('Checking origin:', origin);
+    
+    if (allowedOrigins.includes(origin)) {
+      console.log('Origin allowed:', origin);
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      console.log('Origin blocked:', origin);
+      console.log('Allowed origins:', allowedOrigins);
+      callback(new Error(`Not allowed by CORS: ${origin}`));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 // Body parser middleware

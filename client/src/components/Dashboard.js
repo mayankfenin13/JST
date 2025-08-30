@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import apiConfig from '../config/api';
 
 import { Title, Grid, Card, Container, FlexContainer } from '../styles/GlobalStyles';
 import { useAuth } from '../context/AuthContext';
@@ -123,7 +124,7 @@ const Dashboard = () => {
   const fetchMovies = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/movies', {
+      const response = await axios.get(apiConfig.endpoints.movies.base, {
         params: {
           search: searchQuery,
           page: currentPage,
@@ -148,7 +149,7 @@ const Dashboard = () => {
 
   const handleAddMovie = async (movieData) => {
     try {
-      await axios.post('/api/movies', movieData);
+      await axios.post(apiConfig.endpoints.movies.base, movieData);
       toast.success('Movie added successfully!');
       setShowForm(false);
       fetchMovies();
@@ -160,7 +161,7 @@ const Dashboard = () => {
 
   const handleEditMovie = async (id, movieData) => {
     try {
-      await axios.put(`/api/movies/${id}`, movieData);
+      await axios.put(`${apiConfig.endpoints.movies.base}/${id}`, movieData);
       toast.success('Movie updated successfully!');
       setEditingMovie(null);
       setShowForm(false);
@@ -174,7 +175,7 @@ const Dashboard = () => {
   const handleDeleteMovie = async (id) => {
     if (window.confirm('Are you sure you want to delete this movie?')) {
       try {
-        await axios.delete(`/api/movies/${id}`);
+        await axios.delete(`${apiConfig.endpoints.movies.base}/${id}`);
         toast.success('Movie deleted successfully!');
         fetchMovies();
       } catch (error) {
