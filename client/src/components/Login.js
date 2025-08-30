@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Container, Card, Title, Text } from '../styles/GlobalStyles';
+import apiConfig from '../config/api';
 
 const LoginContainer = styled.div`
   min-height: 100vh;
@@ -71,7 +72,7 @@ const FeatureItem = styled.div`
 
 const Login = () => {
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5001/api/auth/google';
+    window.location.href = apiConfig.endpoints.auth.google;
   };
 
   return (
